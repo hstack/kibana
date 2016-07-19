@@ -51,6 +51,10 @@ RUN set -x \
 	&& sed -ri "s!^(\#\s*)?(elasticsearch\.url:).*!\2 'http://elasticsearch:9200'!" /opt/kibana/config/kibana.yml \
 	&& grep -q 'elasticsearch:9200' /opt/kibana/config/kibana.yml
 
+RUN \
+  sed -i "s/','/', '/" /opt/kibana/node_modules/hapi/node_modules/h2o2/lib/index.js
+
+
 ENV PATH /opt/kibana/bin:$PATH
 
 COPY docker-entrypoint.sh /
